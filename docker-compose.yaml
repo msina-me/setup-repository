@@ -25,10 +25,11 @@ services:
     container_name: 'squid'
     image: 'ubuntu/squid'
     restart: unless-stopped
+    entrypoint: 
+      - ""
+    command: bash -c "sed -i 's|http_access deny all|http_access allow all|g' /etc/squid/squid.conf;  entrypoint.sh -f /etc/squid/squid.conf -NYC"
     ports:
       - '2128:3128'
-    volumes:
-      - '/opt/squid/squid.conf:/etc/squid/squid.conf'
     environment:
       - TZ=UTC
 
